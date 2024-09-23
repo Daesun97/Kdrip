@@ -12,10 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'K-Drip',
       theme: ThemeData(
-        appBarTheme:
-            const AppBarTheme(centerTitle: true, toolbarHeight: Sizes.size24),
+        appBarTheme: const AppBarTheme(
+            centerTitle: true,
+            toolbarHeight: Sizes.size52,
+            foregroundColor: Colors.brown),
         textTheme: const TextTheme(
           titleMedium: TextStyle(
               fontFamily: 'Kotra_Son',

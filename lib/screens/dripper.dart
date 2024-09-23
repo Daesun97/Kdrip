@@ -1,3 +1,4 @@
+import 'package:drip/screens/drip_details/hario_V60.dart';
 import 'package:flutter/material.dart';
 
 class DrippersCreen extends StatelessWidget {
@@ -5,6 +6,15 @@ class DrippersCreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void hario() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HarioV60Recipe(),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: GridView.count(
@@ -16,7 +26,10 @@ class DrippersCreen extends StatelessWidget {
           _buildGridItem('Chemex', Icons.local_drink),
           _buildGridItem('Cupping', Icons.coffee),
           _buildGridItem('French Press', Icons.coffee_maker_outlined),
-          _buildGridItem('Hario V60', Icons.local_cafe),
+          GestureDetector(
+            onTap: hario,
+            child: _buildGridItem('Hario V60', Icons.local_cafe),
+          ),
         ],
       ),
     );

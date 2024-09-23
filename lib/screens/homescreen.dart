@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 50,
         title: Text(
           'Recipes',
           style: Theme.of(context).textTheme.titleMedium,

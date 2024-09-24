@@ -11,7 +11,13 @@ class HarioV60Recipe extends StatefulWidget {
 }
 
 class _HarioV60RecipeState extends State<HarioV60Recipe> {
-  final List<Map<String, String>> coffeeRecipes = [];
+  List<Map<String, String>> coffeeRecipes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRecipes();
+  }
 
   Future<void> _saveRecipes() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -19,9 +25,36 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
     await prefs.setString('coffeeRecipes', jsonString);
   }
 
+  Future<void> _loadRecipes() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jsonString = prefs.getString('coffeeRecipes');
+    if (jsonString != null) {
+      List<dynamic> jsonList = jsonDecode(jsonString);
+      setState(() {
+        coffeeRecipes = List<Map<String, String>>.from(
+          jsonList.map(
+            (item) => Map<String, String>.from(item),
+          ),
+        );
+      });
+    } else {
+      // 새로운 레시피가 없으면 기존 레시피
+      setState(() {
+        coffeeRecipes = [
+          {'title': 'Hario - make it easy', 'time': '4:00'},
+          {'title': 'Hario - make rich taste', 'time': '3:00'},
+          {'title': 'Hario on ice', 'time': '4:00'},
+          {'title': 'Sweet and easy', 'time': '3:30'},
+          {'title': 'V60 recipe by Hario Co., Ltd.', 'time': '3:30'},
+        ];
+      });
+    }
+  }
+
   void _addRecipe() {
     setState(() {
       coffeeRecipes.add({'title': 'New Coffee Recipe', 'time': '5:00'});
+      _saveRecipes();
     });
   }
 

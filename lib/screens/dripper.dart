@@ -10,7 +10,7 @@ class DrippersCreen extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HarioV60Recipe(),
+          builder: (context) => const HarioV60Recipe(),
         ),
       );
     }

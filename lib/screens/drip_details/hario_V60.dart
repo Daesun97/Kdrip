@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HarioV60Recipe extends StatefulWidget {
   const HarioV60Recipe({super.key});
@@ -8,13 +11,13 @@ class HarioV60Recipe extends StatefulWidget {
 }
 
 class _HarioV60RecipeState extends State<HarioV60Recipe> {
-  final List<Map<String, String>> coffeeRecipes = [
-    {'title': 'Hario - make it easy', 'time': '4:00'},
-    {'title': 'Hario - make rich taste', 'time': '3:00'},
-    {'title': 'Hario on ice', 'time': '4:00'},
-    {'title': 'Sweet and easy', 'time': '3:30'},
-    {'title': 'V60 recipe by Hario Co., Ltd.', 'time': '3:30'},
-  ];
+  final List<Map<String, String>> coffeeRecipes = [];
+
+  Future<void> _saveRecipes() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String jsonString = jsonEncode(coffeeRecipes);
+    await prefs.setString('coffeeRecipes', jsonString);
+  }
 
   void _addRecipe() {
     setState(() {

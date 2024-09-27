@@ -21,7 +21,7 @@ CoffeeRecipe _$CoffeeRecipeFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CoffeeRecipe {
   String get recipeName => throw _privateConstructorUsedError;
-  String get distributionDiagram => throw _privateConstructorUsedError;
+  String get degree => throw _privateConstructorUsedError;
   int get coffeeBeansAmount => throw _privateConstructorUsedError;
   int get waterAmount => throw _privateConstructorUsedError;
   int get waterTemperature => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $CoffeeRecipeCopyWith<$Res> {
   @useResult
   $Res call(
       {String recipeName,
-      String distributionDiagram,
+      String degree,
       int coffeeBeansAmount,
       int waterAmount,
       int waterTemperature,
@@ -65,7 +65,7 @@ class _$CoffeeRecipeCopyWithImpl<$Res, $Val extends CoffeeRecipe>
   @override
   $Res call({
     Object? recipeName = null,
-    Object? distributionDiagram = null,
+    Object? degree = null,
     Object? coffeeBeansAmount = null,
     Object? waterAmount = null,
     Object? waterTemperature = null,
@@ -77,9 +77,9 @@ class _$CoffeeRecipeCopyWithImpl<$Res, $Val extends CoffeeRecipe>
           ? _value.recipeName
           : recipeName // ignore: cast_nullable_to_non_nullable
               as String,
-      distributionDiagram: null == distributionDiagram
-          ? _value.distributionDiagram
-          : distributionDiagram // ignore: cast_nullable_to_non_nullable
+      degree: null == degree
+          ? _value.degree
+          : degree // ignore: cast_nullable_to_non_nullable
               as String,
       coffeeBeansAmount: null == coffeeBeansAmount
           ? _value.coffeeBeansAmount
@@ -115,7 +115,7 @@ abstract class _$$CoffeeRecipeImplCopyWith<$Res>
   @useResult
   $Res call(
       {String recipeName,
-      String distributionDiagram,
+      String degree,
       int coffeeBeansAmount,
       int waterAmount,
       int waterTemperature,
@@ -135,7 +135,7 @@ class __$$CoffeeRecipeImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? recipeName = null,
-    Object? distributionDiagram = null,
+    Object? degree = null,
     Object? coffeeBeansAmount = null,
     Object? waterAmount = null,
     Object? waterTemperature = null,
@@ -147,9 +147,9 @@ class __$$CoffeeRecipeImplCopyWithImpl<$Res>
           ? _value.recipeName
           : recipeName // ignore: cast_nullable_to_non_nullable
               as String,
-      distributionDiagram: null == distributionDiagram
-          ? _value.distributionDiagram
-          : distributionDiagram // ignore: cast_nullable_to_non_nullable
+      degree: null == degree
+          ? _value.degree
+          : degree // ignore: cast_nullable_to_non_nullable
               as String,
       coffeeBeansAmount: null == coffeeBeansAmount
           ? _value.coffeeBeansAmount
@@ -180,7 +180,7 @@ class __$$CoffeeRecipeImplCopyWithImpl<$Res>
 class _$CoffeeRecipeImpl implements _CoffeeRecipe {
   const _$CoffeeRecipeImpl(
       {required this.recipeName,
-      required this.distributionDiagram,
+      required this.degree,
       required this.coffeeBeansAmount,
       required this.waterAmount,
       required this.waterTemperature,
@@ -194,7 +194,7 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
   @override
   final String recipeName;
   @override
-  final String distributionDiagram;
+  final String degree;
   @override
   final int coffeeBeansAmount;
   @override
@@ -213,7 +213,7 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
 
   @override
   String toString() {
-    return 'CoffeeRecipe(recipeName: $recipeName, distributionDiagram: $distributionDiagram, coffeeBeansAmount: $coffeeBeansAmount, waterAmount: $waterAmount, waterTemperature: $waterTemperature, totalTime: $totalTime, extractionSteps: $extractionSteps)';
+    return 'CoffeeRecipe(recipeName: $recipeName, degree: $degree, coffeeBeansAmount: $coffeeBeansAmount, waterAmount: $waterAmount, waterTemperature: $waterTemperature, totalTime: $totalTime, extractionSteps: $extractionSteps)';
   }
 
   @override
@@ -223,8 +223,7 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
             other is _$CoffeeRecipeImpl &&
             (identical(other.recipeName, recipeName) ||
                 other.recipeName == recipeName) &&
-            (identical(other.distributionDiagram, distributionDiagram) ||
-                other.distributionDiagram == distributionDiagram) &&
+            (identical(other.degree, degree) || other.degree == degree) &&
             (identical(other.coffeeBeansAmount, coffeeBeansAmount) ||
                 other.coffeeBeansAmount == coffeeBeansAmount) &&
             (identical(other.waterAmount, waterAmount) ||
@@ -242,7 +241,7 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
   int get hashCode => Object.hash(
       runtimeType,
       recipeName,
-      distributionDiagram,
+      degree,
       coffeeBeansAmount,
       waterAmount,
       waterTemperature,
@@ -266,7 +265,7 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
 abstract class _CoffeeRecipe implements CoffeeRecipe {
   const factory _CoffeeRecipe(
           {required final String recipeName,
-          required final String distributionDiagram,
+          required final String degree,
           required final int coffeeBeansAmount,
           required final int waterAmount,
           required final int waterTemperature,
@@ -280,7 +279,7 @@ abstract class _CoffeeRecipe implements CoffeeRecipe {
   @override
   String get recipeName;
   @override
-  String get distributionDiagram;
+  String get degree;
   @override
   int get coffeeBeansAmount;
   @override

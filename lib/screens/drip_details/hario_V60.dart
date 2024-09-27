@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:drip/screens/drip_details/recipe_detial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,7 +17,17 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 500));
     _loadRecipes();
+  }
+
+  recipe_tap(String? recipeName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RecipeDetialScreen(recipeName: recipeName),
+      ),
+    );
   }
 
   Future<void> _saveRecipes() async {
@@ -77,9 +88,7 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
             leading: const Icon(Icons.local_cafe),
             title: Text(coffeeRecipes[index]['title']!),
             subtitle: Text(coffeeRecipes[index]['time']!),
-            onTap: () {
-              // Handle tap for detailed recipe view or other actions
-            },
+            onTap: () => recipe_tap(coffeeRecipes[index]['title']),
           );
         },
       ),

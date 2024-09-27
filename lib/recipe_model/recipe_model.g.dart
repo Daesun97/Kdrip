@@ -9,7 +9,7 @@ part of 'recipe_model.dart';
 _$CoffeeRecipeImpl _$$CoffeeRecipeImplFromJson(Map<String, dynamic> json) =>
     _$CoffeeRecipeImpl(
       recipeName: json['recipeName'] as String,
-      distributionDiagram: json['distributionDiagram'] as String,
+      degree: json['degree'] as String,
       coffeeBeansAmount: (json['coffeeBeansAmount'] as num).toInt(),
       waterAmount: (json['waterAmount'] as num).toInt(),
       waterTemperature: (json['waterTemperature'] as num).toInt(),
@@ -22,7 +22,7 @@ _$CoffeeRecipeImpl _$$CoffeeRecipeImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$CoffeeRecipeImplToJson(_$CoffeeRecipeImpl instance) =>
     <String, dynamic>{
       'recipeName': instance.recipeName,
-      'distributionDiagram': instance.distributionDiagram,
+      'degree': instance.degree,
       'coffeeBeansAmount': instance.coffeeBeansAmount,
       'waterAmount': instance.waterAmount,
       'waterTemperature': instance.waterTemperature,

@@ -7,7 +7,7 @@ part 'recipe_model.g.dart';
 class CoffeeRecipe with _$CoffeeRecipe {
   const factory CoffeeRecipe({
     required String recipeName,
-    required String distributionDiagram,
+    required String degree,
     required int coffeeBeansAmount,
     required int waterAmount,
     required int waterTemperature,

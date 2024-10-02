@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:drip/recipe_model/recipe_model.dart';
 import 'package:drip/screens/drip_details/recipe_detial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +13,7 @@ class HarioV60Recipe extends StatefulWidget {
 }
 
 class _HarioV60RecipeState extends State<HarioV60Recipe> {
-  List<Map<String, String>> coffeeRecipes = [];
+  List<CoffeeRecipe> coffeeRecipes = [];
 
   @override
   void initState() {
@@ -21,18 +22,19 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
     _loadRecipes();
   }
 
-  recipe_tap(String? recipeName) {
+  recipe_tap(CoffeeRecipe recipe) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RecipeDetialScreen(recipeName: recipeName),
+        builder: (context) => RecipeDetailScreen(recipe: recipe),
       ),
     );
   }
 
   Future<void> _saveRecipes() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String jsonString = jsonEncode(coffeeRecipes);
+    String jsonString =
+        jsonEncode(coffeeRecipes.map((recipe) => recipe.toJson()).toList());
     await prefs.setString('coffeeRecipes', jsonString);
   }
 
@@ -42,9 +44,9 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
     if (jsonString != null) {
       List<dynamic> jsonList = jsonDecode(jsonString);
       setState(() {
-        coffeeRecipes = List<Map<String, String>>.from(
+        coffeeRecipes = List<CoffeeRecipe>.from(
           jsonList.map(
-            (item) => Map<String, String>.from(item),
+            (item) => CoffeeRecipe.fromJson(item as Map<String, dynamic>),
           ),
         );
       });
@@ -52,11 +54,48 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
       // 새로운 레시피가 없으면 기존 레시피
       setState(() {
         coffeeRecipes = [
-          {'title': 'Hario - make it easy', 'time': '4:00'},
-          {'title': 'Hario - make rich taste', 'time': '3:00'},
-          {'title': 'Hario on ice', 'time': '4:00'},
-          {'title': 'Sweet and easy', 'time': '3:30'},
-          {'title': 'V60 recipe by Hario Co., Ltd.', 'time': '3:30'},
+          const CoffeeRecipe(
+            recipeName: 'Hario V60',
+            degree: null,
+            coffeeBeansAmount: 30,
+            waterAmount: 360,
+            waterTemperature: 92,
+            totalTime: 165,
+            extractionSteps: [
+              {'Bloom': 30},
+              {'Swirl': 10},
+              {'Pour Water': 50},
+              {'Wait': 30},
+              {'Pour Water': 45},
+            ],
+          ),
+          const CoffeeRecipe(
+            recipeName: 'Chemex',
+            degree: 'Medium-Dark',
+            coffeeBeansAmount: 40,
+            waterAmount: 600,
+            waterTemperature: 93,
+            totalTime: 210,
+            extractionSteps: [
+              {'Bloom': 40},
+              {'First Pour': 60},
+              {'Second Pour': 60},
+              {'Final Pour': 50},
+            ],
+          ),
+          const CoffeeRecipe(
+            recipeName: 'French Press',
+            degree: 'Dark',
+            coffeeBeansAmount: 50,
+            waterAmount: 500,
+            waterTemperature: 96,
+            totalTime: 240,
+            extractionSteps: [
+              {'Stir': 30},
+              {'Press': 60},
+              {'Pour': 60},
+            ],
+          ),
         ];
       });
     }
@@ -64,7 +103,6 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
 
   void _addRecipe() {
     setState(() {
-      coffeeRecipes.add({'title': 'New Coffee Recipe', 'time': '5:00'});
       _saveRecipes();
     });
   }
@@ -84,11 +122,13 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
       body: ListView.builder(
         itemCount: coffeeRecipes.length,
         itemBuilder: (context, index) {
+          final recipe = coffeeRecipes[index];
           return ListTile(
-            leading: const Icon(Icons.local_cafe),
-            title: Text(coffeeRecipes[index]['title']!),
-            subtitle: Text(coffeeRecipes[index]['time']!),
-            onTap: () => recipe_tap(coffeeRecipes[index]['title']),
+            title: Text(recipe.recipeName!),
+            subtitle: Text(
+                '커피 량: ${recipe.coffeeBeansAmount}g, 물 량: ${recipe.waterAmount}ml'),
+            trailing: const Icon(Icons.arrow_forward),
+            onTap: () => recipe_tap(recipe),
           );
         },
       ),

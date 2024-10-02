@@ -6,13 +6,13 @@ part 'recipe_model.g.dart';
 @freezed
 class CoffeeRecipe with _$CoffeeRecipe {
   const factory CoffeeRecipe({
-    required String recipeName,
-    required String degree,
     required int coffeeBeansAmount,
     required int waterAmount,
     required int waterTemperature,
     required int totalTime,
     required List<Map<String, int>> extractionSteps,
+    String? recipeName,
+    String? degree,
   }) = _CoffeeRecipe;
 
   factory CoffeeRecipe.fromJson(Map<String, dynamic> json) =>

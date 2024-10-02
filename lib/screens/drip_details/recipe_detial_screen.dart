@@ -1,21 +1,22 @@
 import 'package:drip/constants/sizes.dart';
+import 'package:drip/recipe_model/recipe_model.dart';
 import 'package:flutter/material.dart';
 
-class RecipeDetialScreen extends StatefulWidget {
-  final String? recipeName;
-  const RecipeDetialScreen({super.key, required this.recipeName});
+class RecipeDetailScreen extends StatefulWidget {
+  final CoffeeRecipe recipe;
+  const RecipeDetailScreen({super.key, required this.recipe});
 
   @override
-  State<RecipeDetialScreen> createState() => _RecipeDetialScreenState();
+  State<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
 }
 
-class _RecipeDetialScreenState extends State<RecipeDetialScreen> {
+class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    print(widget.recipeName);
+    print(widget.recipe.recipeName);
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.recipeName}'),
+        title: Text(widget.recipe.recipeName!),
       ),
       body: const Padding(
         padding: EdgeInsets.all(Sizes.size12),

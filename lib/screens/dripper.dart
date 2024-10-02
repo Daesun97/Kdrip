@@ -1,4 +1,4 @@
-import 'package:drip/screens/drip_details/hario_V60.dart';
+import 'package:drip/screens/drip_details/hario_v60.dart';
 import 'package:flutter/material.dart';
 
 class DrippersCreen extends StatelessWidget {

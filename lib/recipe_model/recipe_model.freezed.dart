@@ -20,14 +20,14 @@ CoffeeRecipe _$CoffeeRecipeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CoffeeRecipe {
-  String get recipeName => throw _privateConstructorUsedError;
-  String get degree => throw _privateConstructorUsedError;
   int get coffeeBeansAmount => throw _privateConstructorUsedError;
   int get waterAmount => throw _privateConstructorUsedError;
   int get waterTemperature => throw _privateConstructorUsedError;
   int get totalTime => throw _privateConstructorUsedError;
   List<Map<String, int>> get extractionSteps =>
       throw _privateConstructorUsedError;
+  String? get recipeName => throw _privateConstructorUsedError;
+  String? get degree => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,13 +42,13 @@ abstract class $CoffeeRecipeCopyWith<$Res> {
       _$CoffeeRecipeCopyWithImpl<$Res, CoffeeRecipe>;
   @useResult
   $Res call(
-      {String recipeName,
-      String degree,
-      int coffeeBeansAmount,
+      {int coffeeBeansAmount,
       int waterAmount,
       int waterTemperature,
       int totalTime,
-      List<Map<String, int>> extractionSteps});
+      List<Map<String, int>> extractionSteps,
+      String? recipeName,
+      String? degree});
 }
 
 /// @nodoc
@@ -64,23 +64,15 @@ class _$CoffeeRecipeCopyWithImpl<$Res, $Val extends CoffeeRecipe>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? recipeName = null,
-    Object? degree = null,
     Object? coffeeBeansAmount = null,
     Object? waterAmount = null,
     Object? waterTemperature = null,
     Object? totalTime = null,
     Object? extractionSteps = null,
+    Object? recipeName = freezed,
+    Object? degree = freezed,
   }) {
     return _then(_value.copyWith(
-      recipeName: null == recipeName
-          ? _value.recipeName
-          : recipeName // ignore: cast_nullable_to_non_nullable
-              as String,
-      degree: null == degree
-          ? _value.degree
-          : degree // ignore: cast_nullable_to_non_nullable
-              as String,
       coffeeBeansAmount: null == coffeeBeansAmount
           ? _value.coffeeBeansAmount
           : coffeeBeansAmount // ignore: cast_nullable_to_non_nullable
@@ -101,6 +93,14 @@ class _$CoffeeRecipeCopyWithImpl<$Res, $Val extends CoffeeRecipe>
           ? _value.extractionSteps
           : extractionSteps // ignore: cast_nullable_to_non_nullable
               as List<Map<String, int>>,
+      recipeName: freezed == recipeName
+          ? _value.recipeName
+          : recipeName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      degree: freezed == degree
+          ? _value.degree
+          : degree // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -114,13 +114,13 @@ abstract class _$$CoffeeRecipeImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String recipeName,
-      String degree,
-      int coffeeBeansAmount,
+      {int coffeeBeansAmount,
       int waterAmount,
       int waterTemperature,
       int totalTime,
-      List<Map<String, int>> extractionSteps});
+      List<Map<String, int>> extractionSteps,
+      String? recipeName,
+      String? degree});
 }
 
 /// @nodoc
@@ -134,23 +134,15 @@ class __$$CoffeeRecipeImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? recipeName = null,
-    Object? degree = null,
     Object? coffeeBeansAmount = null,
     Object? waterAmount = null,
     Object? waterTemperature = null,
     Object? totalTime = null,
     Object? extractionSteps = null,
+    Object? recipeName = freezed,
+    Object? degree = freezed,
   }) {
     return _then(_$CoffeeRecipeImpl(
-      recipeName: null == recipeName
-          ? _value.recipeName
-          : recipeName // ignore: cast_nullable_to_non_nullable
-              as String,
-      degree: null == degree
-          ? _value.degree
-          : degree // ignore: cast_nullable_to_non_nullable
-              as String,
       coffeeBeansAmount: null == coffeeBeansAmount
           ? _value.coffeeBeansAmount
           : coffeeBeansAmount // ignore: cast_nullable_to_non_nullable
@@ -171,6 +163,14 @@ class __$$CoffeeRecipeImplCopyWithImpl<$Res>
           ? _value._extractionSteps
           : extractionSteps // ignore: cast_nullable_to_non_nullable
               as List<Map<String, int>>,
+      recipeName: freezed == recipeName
+          ? _value.recipeName
+          : recipeName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      degree: freezed == degree
+          ? _value.degree
+          : degree // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -179,22 +179,18 @@ class __$$CoffeeRecipeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CoffeeRecipeImpl implements _CoffeeRecipe {
   const _$CoffeeRecipeImpl(
-      {required this.recipeName,
-      required this.degree,
-      required this.coffeeBeansAmount,
+      {required this.coffeeBeansAmount,
       required this.waterAmount,
       required this.waterTemperature,
       required this.totalTime,
-      required final List<Map<String, int>> extractionSteps})
+      required final List<Map<String, int>> extractionSteps,
+      this.recipeName,
+      this.degree})
       : _extractionSteps = extractionSteps;
 
   factory _$CoffeeRecipeImpl.fromJson(Map<String, dynamic> json) =>
       _$$CoffeeRecipeImplFromJson(json);
 
-  @override
-  final String recipeName;
-  @override
-  final String degree;
   @override
   final int coffeeBeansAmount;
   @override
@@ -212,8 +208,13 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
   }
 
   @override
+  final String? recipeName;
+  @override
+  final String? degree;
+
+  @override
   String toString() {
-    return 'CoffeeRecipe(recipeName: $recipeName, degree: $degree, coffeeBeansAmount: $coffeeBeansAmount, waterAmount: $waterAmount, waterTemperature: $waterTemperature, totalTime: $totalTime, extractionSteps: $extractionSteps)';
+    return 'CoffeeRecipe(coffeeBeansAmount: $coffeeBeansAmount, waterAmount: $waterAmount, waterTemperature: $waterTemperature, totalTime: $totalTime, extractionSteps: $extractionSteps, recipeName: $recipeName, degree: $degree)';
   }
 
   @override
@@ -221,9 +222,6 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CoffeeRecipeImpl &&
-            (identical(other.recipeName, recipeName) ||
-                other.recipeName == recipeName) &&
-            (identical(other.degree, degree) || other.degree == degree) &&
             (identical(other.coffeeBeansAmount, coffeeBeansAmount) ||
                 other.coffeeBeansAmount == coffeeBeansAmount) &&
             (identical(other.waterAmount, waterAmount) ||
@@ -233,20 +231,23 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
             (identical(other.totalTime, totalTime) ||
                 other.totalTime == totalTime) &&
             const DeepCollectionEquality()
-                .equals(other._extractionSteps, _extractionSteps));
+                .equals(other._extractionSteps, _extractionSteps) &&
+            (identical(other.recipeName, recipeName) ||
+                other.recipeName == recipeName) &&
+            (identical(other.degree, degree) || other.degree == degree));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      recipeName,
-      degree,
       coffeeBeansAmount,
       waterAmount,
       waterTemperature,
       totalTime,
-      const DeepCollectionEquality().hash(_extractionSteps));
+      const DeepCollectionEquality().hash(_extractionSteps),
+      recipeName,
+      degree);
 
   @JsonKey(ignore: true)
   @override
@@ -264,22 +265,17 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
 
 abstract class _CoffeeRecipe implements CoffeeRecipe {
   const factory _CoffeeRecipe(
-          {required final String recipeName,
-          required final String degree,
-          required final int coffeeBeansAmount,
-          required final int waterAmount,
-          required final int waterTemperature,
-          required final int totalTime,
-          required final List<Map<String, int>> extractionSteps}) =
-      _$CoffeeRecipeImpl;
+      {required final int coffeeBeansAmount,
+      required final int waterAmount,
+      required final int waterTemperature,
+      required final int totalTime,
+      required final List<Map<String, int>> extractionSteps,
+      final String? recipeName,
+      final String? degree}) = _$CoffeeRecipeImpl;
 
   factory _CoffeeRecipe.fromJson(Map<String, dynamic> json) =
       _$CoffeeRecipeImpl.fromJson;
 
-  @override
-  String get recipeName;
-  @override
-  String get degree;
   @override
   int get coffeeBeansAmount;
   @override
@@ -290,6 +286,10 @@ abstract class _CoffeeRecipe implements CoffeeRecipe {
   int get totalTime;
   @override
   List<Map<String, int>> get extractionSteps;
+  @override
+  String? get recipeName;
+  @override
+  String? get degree;
   @override
   @JsonKey(ignore: true)
   _$$CoffeeRecipeImplCopyWith<_$CoffeeRecipeImpl> get copyWith =>

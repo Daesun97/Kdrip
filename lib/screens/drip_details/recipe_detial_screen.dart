@@ -15,14 +15,17 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.recipe.recipeName!),
+        title: Text(widget.recipe.recipeName),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(Sizes.size12),
+      body: Padding(
+        padding: const EdgeInsets.all(Sizes.size12),
         child: Column(
           children: [
             GridView.count(
               crossAxisCount: 2,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
+              children: const [],
             )
           ],
         ),

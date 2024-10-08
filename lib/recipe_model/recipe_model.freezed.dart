@@ -26,8 +26,8 @@ mixin _$CoffeeRecipe {
   int get totalTime => throw _privateConstructorUsedError;
   List<Map<String, int>> get extractionSteps =>
       throw _privateConstructorUsedError;
-  String? get recipeName => throw _privateConstructorUsedError;
-  String? get degree => throw _privateConstructorUsedError;
+  String get recipeName => throw _privateConstructorUsedError;
+  String get degree => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,8 +47,8 @@ abstract class $CoffeeRecipeCopyWith<$Res> {
       int waterTemperature,
       int totalTime,
       List<Map<String, int>> extractionSteps,
-      String? recipeName,
-      String? degree});
+      String recipeName,
+      String degree});
 }
 
 /// @nodoc
@@ -69,8 +69,8 @@ class _$CoffeeRecipeCopyWithImpl<$Res, $Val extends CoffeeRecipe>
     Object? waterTemperature = null,
     Object? totalTime = null,
     Object? extractionSteps = null,
-    Object? recipeName = freezed,
-    Object? degree = freezed,
+    Object? recipeName = null,
+    Object? degree = null,
   }) {
     return _then(_value.copyWith(
       coffeeBeansAmount: null == coffeeBeansAmount
@@ -93,14 +93,14 @@ class _$CoffeeRecipeCopyWithImpl<$Res, $Val extends CoffeeRecipe>
           ? _value.extractionSteps
           : extractionSteps // ignore: cast_nullable_to_non_nullable
               as List<Map<String, int>>,
-      recipeName: freezed == recipeName
+      recipeName: null == recipeName
           ? _value.recipeName
           : recipeName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      degree: freezed == degree
+              as String,
+      degree: null == degree
           ? _value.degree
           : degree // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ) as $Val);
   }
 }
@@ -119,8 +119,8 @@ abstract class _$$CoffeeRecipeImplCopyWith<$Res>
       int waterTemperature,
       int totalTime,
       List<Map<String, int>> extractionSteps,
-      String? recipeName,
-      String? degree});
+      String recipeName,
+      String degree});
 }
 
 /// @nodoc
@@ -139,8 +139,8 @@ class __$$CoffeeRecipeImplCopyWithImpl<$Res>
     Object? waterTemperature = null,
     Object? totalTime = null,
     Object? extractionSteps = null,
-    Object? recipeName = freezed,
-    Object? degree = freezed,
+    Object? recipeName = null,
+    Object? degree = null,
   }) {
     return _then(_$CoffeeRecipeImpl(
       coffeeBeansAmount: null == coffeeBeansAmount
@@ -163,14 +163,14 @@ class __$$CoffeeRecipeImplCopyWithImpl<$Res>
           ? _value._extractionSteps
           : extractionSteps // ignore: cast_nullable_to_non_nullable
               as List<Map<String, int>>,
-      recipeName: freezed == recipeName
+      recipeName: null == recipeName
           ? _value.recipeName
           : recipeName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      degree: freezed == degree
+              as String,
+      degree: null == degree
           ? _value.degree
           : degree // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -184,8 +184,8 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
       required this.waterTemperature,
       required this.totalTime,
       required final List<Map<String, int>> extractionSteps,
-      this.recipeName,
-      this.degree})
+      required this.recipeName,
+      required this.degree})
       : _extractionSteps = extractionSteps;
 
   factory _$CoffeeRecipeImpl.fromJson(Map<String, dynamic> json) =>
@@ -208,9 +208,9 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
   }
 
   @override
-  final String? recipeName;
+  final String recipeName;
   @override
-  final String? degree;
+  final String degree;
 
   @override
   String toString() {
@@ -270,8 +270,8 @@ abstract class _CoffeeRecipe implements CoffeeRecipe {
       required final int waterTemperature,
       required final int totalTime,
       required final List<Map<String, int>> extractionSteps,
-      final String? recipeName,
-      final String? degree}) = _$CoffeeRecipeImpl;
+      required final String recipeName,
+      required final String degree}) = _$CoffeeRecipeImpl;
 
   factory _CoffeeRecipe.fromJson(Map<String, dynamic> json) =
       _$CoffeeRecipeImpl.fromJson;
@@ -287,9 +287,9 @@ abstract class _CoffeeRecipe implements CoffeeRecipe {
   @override
   List<Map<String, int>> get extractionSteps;
   @override
-  String? get recipeName;
+  String get recipeName;
   @override
-  String? get degree;
+  String get degree;
   @override
   @JsonKey(ignore: true)
   _$$CoffeeRecipeImplCopyWith<_$CoffeeRecipeImpl> get copyWith =>

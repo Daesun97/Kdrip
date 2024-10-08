@@ -13,7 +13,6 @@ class RecipeDetailScreen extends StatefulWidget {
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    print(widget.recipe.recipeName);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.recipe.recipeName!),
@@ -21,7 +20,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       body: const Padding(
         padding: EdgeInsets.all(Sizes.size12),
         child: Column(
-          children: [],
+          children: [
+            GridView.count(
+              crossAxisCount: 2,
+            )
+          ],
         ),
       ),
     );

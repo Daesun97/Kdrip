@@ -15,8 +15,8 @@ _$CoffeeRecipeImpl _$$CoffeeRecipeImplFromJson(Map<String, dynamic> json) =>
       extractionSteps: (json['extractionSteps'] as List<dynamic>)
           .map((e) => Map<String, int>.from(e as Map))
           .toList(),
-      recipeName: json['recipeName'] as String?,
-      degree: json['degree'] as String?,
+      recipeName: json['recipeName'] as String,
+      degree: json['degree'] as String,
     );
 
 Map<String, dynamic> _$$CoffeeRecipeImplToJson(_$CoffeeRecipeImpl instance) =>

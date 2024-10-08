@@ -56,22 +56,22 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
         coffeeRecipes = [
           const CoffeeRecipe(
             recipeName: 'Hario V60',
-            degree: null,
+            grindSize: '중강배전',
             coffeeBeansAmount: 30,
             waterAmount: 360,
             waterTemperature: 92,
             totalTime: 165,
             extractionSteps: [
-              {'Bloom': 30},
-              {'Swirl': 10},
-              {'Pour Water': 50},
-              {'Wait': 30},
-              {'Pour Water': 45},
+              {'뜸들이기': 30},
+              {'스왈링': 10},
+              {'물 붓기': 50},
+              {'기다리기': 30},
+              {'물 붓기': 45},
             ],
           ),
           const CoffeeRecipe(
             recipeName: 'Chemex',
-            degree: 'Medium-Dark',
+            grindSize: 'Medium-Dark',
             coffeeBeansAmount: 40,
             waterAmount: 600,
             waterTemperature: 93,
@@ -85,7 +85,7 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
           ),
           const CoffeeRecipe(
             recipeName: 'French Press',
-            degree: 'Dark',
+            grindSize: 'Dark',
             coffeeBeansAmount: 50,
             waterAmount: 500,
             waterTemperature: 96,
@@ -124,7 +124,7 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
         itemBuilder: (context, index) {
           final recipe = coffeeRecipes[index];
           return ListTile(
-            title: Text(recipe.recipeName!),
+            title: Text(recipe.recipeName),
             subtitle: Text(
                 '커피 량: ${recipe.coffeeBeansAmount}g, 물 량: ${recipe.waterAmount}ml'),
             trailing: const Icon(Icons.arrow_forward),

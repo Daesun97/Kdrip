@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'recipe_model.freezed.dart';
 part 'recipe_model.g.dart';
 
+//모델에 드립퍼종류도 들어가야함
 @freezed
 class CoffeeRecipe with _$CoffeeRecipe {
   const factory CoffeeRecipe({

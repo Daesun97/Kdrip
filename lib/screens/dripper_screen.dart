@@ -15,6 +15,33 @@ class DrippersCreen extends StatelessWidget {
       );
     }
 
+    void espresso() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HarioV60Recipe(),
+        ),
+      );
+    }
+
+    void kalita() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HarioV60Recipe(),
+        ),
+      );
+    }
+
+    void french_Press() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HarioV60Recipe(),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: GridView.count(
@@ -22,13 +49,21 @@ class DrippersCreen extends StatelessWidget {
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
         children: [
-          _buildGridItem('Aeropress', Icons.coffee_maker),
-          _buildGridItem('Chemex', Icons.local_drink),
-          _buildGridItem('Cupping', Icons.coffee),
-          _buildGridItem('French Press', Icons.coffee_maker_outlined),
+          GestureDetector(
+            onTap: espresso,
+            child: _buildGridItem('에스프레소', Icons.coffee_maker),
+          ),
+          GestureDetector(
+            onTap: kalita,
+            child: _buildGridItem('칼리타', Icons.local_drink),
+          ),
+          GestureDetector(
+            onTap: french_Press,
+            child: _buildGridItem('프렌치 프레스', Icons.coffee_maker_outlined),
+          ),
           GestureDetector(
             onTap: hario,
-            child: _buildGridItem('Hario V60', Icons.local_cafe),
+            child: _buildGridItem('하리오 V60', Icons.local_cafe),
           ),
         ],
       ),

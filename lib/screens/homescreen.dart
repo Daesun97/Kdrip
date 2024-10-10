@@ -1,5 +1,5 @@
 import 'package:drip/screens/FavoriteScreen.dart';
-import 'package:drip/screens/dripper.dart';
+import 'package:drip/screens/dripper_screen.dart';
 import 'package:drip/screens/logScreen.dart';
 import 'package:flutter/material.dart';
 

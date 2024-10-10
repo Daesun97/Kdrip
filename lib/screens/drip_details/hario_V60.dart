@@ -55,8 +55,8 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
       setState(() {
         coffeeRecipes = [
           const CoffeeRecipe(
-            recipeName: 'Hario V60',
-            grindSize: '중강배전',
+            recipeName: '하리오 V60',
+            grindSize: '굵게',
             coffeeBeansAmount: 30,
             waterAmount: 360,
             waterTemperature: 92,
@@ -70,22 +70,22 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
             ],
           ),
           const CoffeeRecipe(
-            recipeName: 'Chemex',
-            grindSize: 'Medium-Dark',
+            recipeName: '칼리타',
+            grindSize: '중간',
             coffeeBeansAmount: 40,
             waterAmount: 600,
             waterTemperature: 93,
             totalTime: 210,
             extractionSteps: [
-              {'Bloom': 40},
-              {'First Pour': 60},
-              {'Second Pour': 60},
-              {'Final Pour': 50},
+              {'뜸들이기': 40},
+              {'물 붓기': 60},
+              {'물 붓기': 60},
+              {'물 붓기': 50},
             ],
           ),
           const CoffeeRecipe(
-            recipeName: 'French Press',
-            grindSize: 'Dark',
+            recipeName: '프렌치 프레스',
+            grindSize: '가늘게',
             coffeeBeansAmount: 50,
             waterAmount: 500,
             waterTemperature: 96,
@@ -102,9 +102,9 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
   }
 
   void _addRecipe() {
-    setState(() {
-      _saveRecipes();
-    });
+    // setState(() {
+    //   _saveRecipes();
+    // });
   }
 
   @override

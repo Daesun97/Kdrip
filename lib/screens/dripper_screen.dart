@@ -33,7 +33,7 @@ class DrippersCreen extends StatelessWidget {
       );
     }
 
-    void french_Press() {
+    void frenchPress() {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -58,7 +58,7 @@ class DrippersCreen extends StatelessWidget {
             child: _buildGridItem('칼리타', Icons.local_drink),
           ),
           GestureDetector(
-            onTap: french_Press,
+            onTap: frenchPress,
             child: _buildGridItem('프렌치 프레스', Icons.coffee_maker_outlined),
           ),
           GestureDetector(

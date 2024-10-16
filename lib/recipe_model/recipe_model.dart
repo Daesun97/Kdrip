@@ -7,6 +7,7 @@ part 'recipe_model.g.dart';
 @freezed
 class CoffeeRecipe with _$CoffeeRecipe {
   const factory CoffeeRecipe({
+    required String dripperName,
     required String recipeName,
     required String grindSize,
     required int coffeeBeansAmount,

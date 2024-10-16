@@ -44,8 +44,10 @@ class _HomePageState extends State<HomePage> {
               ),
               label: 'Recipes'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border_outlined,
-                  color: _selectedIndex == 1 ? Colors.brown : Colors.black),
+              icon: _selectedIndex == 1
+                  ? const Icon(Icons.favorite, color: Colors.brown)
+                  : const Icon(Icons.favorite_border_outlined,
+                      color: Colors.black),
               label: 'Favorites'),
           BottomNavigationBarItem(
               icon: Icon(Icons.access_time,

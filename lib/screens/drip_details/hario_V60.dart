@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:drip/recipe_model/recipe_model.dart';
+import 'package:drip/screens/drip_details/add_recipe_screen.dart';
 import 'package:drip/screens/drip_details/recipe_detial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,6 +56,7 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
       setState(() {
         coffeeRecipes = [
           const CoffeeRecipe(
+            dripperName: '하리오 V60',
             recipeName: '하리오 V60',
             grindSize: '굵게',
             coffeeBeansAmount: 30,
@@ -70,6 +72,7 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
             ],
           ),
           const CoffeeRecipe(
+            dripperName: '하리오 V60',
             recipeName: '칼리타',
             grindSize: '중간',
             coffeeBeansAmount: 40,
@@ -84,6 +87,7 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
             ],
           ),
           const CoffeeRecipe(
+            dripperName: '하리오 V60',
             recipeName: '프렌치 프레스',
             grindSize: '가늘게',
             coffeeBeansAmount: 50,
@@ -102,6 +106,12 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
   }
 
   void _addRecipe() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AddRecipeScreen(),
+      ),
+    );
     // setState(() {
     //   _saveRecipes();
     // });

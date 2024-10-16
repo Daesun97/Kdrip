@@ -17,17 +17,22 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       appBar: AppBar(
         title: Text(widget.recipe.recipeName),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(Sizes.size12),
-        child: Column(
-          children: [
-            GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-              children: const [],
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(Sizes.size12),
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                  children: const [],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

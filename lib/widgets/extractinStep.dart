@@ -18,92 +18,83 @@ class ExtractionStep extends StatefulWidget {
 }
 
 class _ExtractionStepState extends State<ExtractionStep> {
-  bool _isDisposed = false; // 컨트롤러 해제 여부 추적
-  String selectedAction = '물 추가'; // 초기값 설정
-
-  @override
-  void initState() {
-    super.initState();
-    // 초기값 설정 (만약 컨트롤러에 값이 없으면 '물 추가'로 설정)
-    widget.controllers['amount']?.text = '해당 없음';
-  }
-
-  @override
-  void dispose() {
-    // 컨트롤러 해제 및 상태 플래그 설정
-    widget.controllers.forEach((key, controller) {
-      controller.dispose();
-    });
-    _isDisposed = true;
-    super.dispose();
-  }
+  String selectedAction = '작업 선택'; // 초기값 설정
 
   @override
   Widget build(BuildContext context) {
-    if (_isDisposed) {
-      // 위젯이 해제된 상태라면 빈 위젯 반환
-      return const SizedBox.shrink();
-    }
-
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: DropdownButtonFormField<String>(
-            style: Theme.of(context).textTheme.bodyMedium,
-            value: selectedAction,
-            items: ['물 추가', '스왈링', '휘젓기']
-                .map((action) => DropdownMenuItem<String>(
-                      value: action,
-                      child: Text(action),
-                    ))
-                .toList(),
-            onChanged: (value) {
-              setState(() {
-                selectedAction = value!;
-                // 작업 종류에 따라 양의 기본값 설정
-                if (selectedAction != '물 추가') {
-                  widget.controllers['amount']?.text = '해당 없음';
-                }
-              });
-            },
-            decoration: const InputDecoration(
-              labelText: '추출 과정 추가',
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-        if (selectedAction == '물 추가')
-          Expanded(
-            child: TextFormField(
-              controller: widget.controllers['amount'],
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                hintText: '추가할 물량 (ml)',
+        Row(
+          children: [
+            Expanded(
+              child: DropdownButton<String>(
+                value: selectedAction,
+                items: ['작업 선택', '물 추가', '스왈링', '휘젓기']
+                    .map(
+                      (action) => DropdownMenuItem<String>(
+                        value: action,
+                        child: Text(action),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedAction = value!;
+                    if (selectedAction != '물 추가') {
+                      widget.controllers['amount']?.text = '해당 없음';
+                    }
+                  });
+                },
               ),
-              validator: (value) {
-                if (selectedAction == '물 추가' &&
-                    (value == null ||
-                        value.isEmpty ||
-                        int.tryParse(value) == null)) {
-                  return 'Enter valid amount';
-                }
-                return null;
-              },
             ),
-          ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: TextFormField(
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: widget.onRemove,
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        if (selectedAction == '물 추가')
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: widget.controllers['amount'],
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      labelText: '물량 (ml)',
+                      labelStyle: TextStyle(color: Colors.brown)),
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        int.tryParse(value) == null) {
+                      return '올바른 량을 기입해 주세요';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: TextFormField(
+                  controller: widget.controllers['time'],
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      labelText: '시간 (초)',
+                      labelStyle: TextStyle(color: Colors.brown)),
+                ),
+              ),
+            ],
+          )
+        else
+          TextFormField(
             controller: widget.controllers['time'],
+            keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               labelText: '시간 (초)',
             ),
           ),
-        ),
-        IconButton(
-          icon: const Icon(Icons.delete),
-          onPressed: widget.onRemove,
-        ),
       ],
     );
   }

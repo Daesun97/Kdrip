@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:drip/constants/gaps.dart';
 import 'package:drip/constants/sizes.dart';
 import 'package:drip/recipe_model/recipe_model.dart';
+import 'package:drip/recipes.dart';
 import 'package:drip/widgets/extractinStep.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddRecipeScreen extends StatefulWidget {
   const AddRecipeScreen({super.key});
@@ -12,7 +16,9 @@ class AddRecipeScreen extends StatefulWidget {
 }
 
 class _AddRecipeScreenState extends State<AddRecipeScreen> {
+  List<CoffeeRecipe> coffeeRecipes = [];
   final _formKey = GlobalKey<FormState>();
+  int actionnum = 0;
 
   String _selectedDripper = '드립퍼';
   String _selectedGrindSize = '분쇄도';
@@ -43,23 +49,34 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   void _addExtractionStep() {
     setState(() {
       _extractionStepsControllers.add({
-        'action': TextEditingController(),
-        'amount': TextEditingController(),
-        'time': TextEditingController(),
+        //amout는 없을 수도 있는데 그건 어케 조건을 걸지?
+        //여기서 Controller를 만들게 아니라 + 누를때 마다 생성해야 하나?
+        //그게 되나 이거
+        'action $actionnum': TextEditingController(),
+        'amount $actionnum': TextEditingController(),
+        'time $actionnum': TextEditingController(),
       });
     });
+    actionnum += 1;
   }
 
   void _removeExtractionStep(int index) {
-    // 컨트롤러 해제 후 상태 변경
-
     setState(() {
       // 각 컨트롤러 안전하게 해제
-      _extractionStepsControllers[index]['action']?.dispose();
-      _extractionStepsControllers[index]['amount']?.dispose();
-      _extractionStepsControllers[index]['time']?.dispose();
+      _extractionStepsControllers[index]['action $actionnum']?.dispose();
+      _extractionStepsControllers[index]['amount $actionnum']?.dispose();
+      _extractionStepsControllers[index]['time $actionnum']?.dispose();
       _extractionStepsControllers.removeAt(index); // 상태 변경
+      actionnum -= 1;
     });
+    print(Text('인덳: $index, 넘버: $actionnum'));
+  }
+
+  Future<void> _saveRecipes() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String jsonString = jsonEncode(
+        coffeeRecipes_Hario.map((recipe) => recipe.toJson()).toList());
+    await prefs.setString('coffeeRecipes', jsonString);
   }
 
   @override
@@ -70,6 +87,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     _waterAmountController.dispose();
     _waterTemperatureController.dispose();
     _totalTimeController.dispose();
+    for (var controllers in _extractionStepsControllers) {
+      controllers.forEach((_, controller) => controller.dispose());
+    }
     super.dispose();
   }
 
@@ -88,7 +108,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
-              // 부모와 스크롤 충돌 방지
               children: [
                 // 레시피 이름 입력
                 TextFormField(
@@ -224,23 +243,24 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                ..._extractionStepsControllers.asMap().entries.map((entry) {
-                  // int index = entry.key;
-                  return ListView.builder(
-                    shrinkWrap: true, // 자식 ListView도 내용에 맞게 축소
-                    physics:
-                        const NeverScrollableScrollPhysics(), // 이 ListView의 스크롤 비활성화
-                    itemCount: _extractionStepsControllers.length,
-                    itemBuilder: (context, index) {
-                      final controllers = _extractionStepsControllers[index];
-                      return ExtractionStep(
-                        index: index,
-                        controllers: controllers,
-                        onRemove: () => _removeExtractionStep(index),
-                      );
-                    },
-                  );
-                }),
+
+                // 추출 단계 리스트 렌더링
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: _extractionStepsControllers.length,
+                  itemBuilder: (context, index) {
+                    final controllers = _extractionStepsControllers[index];
+                    return ExtractionStep(
+                      index: index,
+                      controllers: controllers,
+                      onRemove: () => _removeExtractionStep(index),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: Sizes.size10);
+                  },
+                ),
 
                 // 단계 추가 버튼
                 ElevatedButton(
@@ -255,37 +275,41 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                   ),
                 ),
                 //저장
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Gather extraction steps
-                      List<Map<String, int>> extractionSteps =
-                          _extractionStepsControllers.map((controllers) {
-                        return {
-                          'amount': int.parse(controllers['amount']!.text),
-                          'time': int.parse(controllers['time']!.text),
-                        };
-                      }).toList();
+                Padding(
+                  padding: const EdgeInsets.only(top: Sizes.size20),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // Gather extraction steps
+                        List<Map<String, int>> extractionSteps =
+                            _extractionStepsControllers.map((controllers) {
+                          return {
+                            'amount': int.parse(controllers['amount']!.text),
+                            'time': int.parse(controllers['time']!.text),
+                          };
+                        }).toList();
 
-                      // Create a CoffeeRecipe object with the input values
-                      final coffeeRecipe = CoffeeRecipe(
-                        dripperName: _selectedDripper,
-                        recipeName: _recipeNameController.text,
-                        grindSize: _selectedGrindSize,
-                        coffeeBeansAmount:
-                            int.parse(_coffeeBeansAmountController.text),
-                        waterAmount: int.parse(_waterAmountController.text),
-                        waterTemperature:
-                            int.parse(_waterTemperatureController.text),
-                        totalTime: int.parse(_totalTimeController.text),
-                        extractionSteps: extractionSteps,
-                      );
+                        // Create a CoffeeRecipe object with the input values
+                        final coffeeRecipe = CoffeeRecipe(
+                          dripperName: _selectedDripper,
+                          recipeName: _recipeNameController.text,
+                          grindSize: _selectedGrindSize,
+                          coffeeBeansAmount:
+                              int.parse(_coffeeBeansAmountController.text),
+                          waterAmount: int.parse(_waterAmountController.text),
+                          waterTemperature:
+                              int.parse(_waterTemperatureController.text),
+                          totalTime: int.parse(_totalTimeController.text),
+                          extractionSteps: extractionSteps,
+                        );
+                        _saveRecipes;
 
-                      // Print or save the CoffeeRecipe object
-                      print(coffeeRecipe);
-                    }
-                  },
-                  child: const Text('레시피 저장'),
+                        // Print or save the CoffeeRecipe object
+                        print(coffeeRecipe);
+                      }
+                    },
+                    child: const Text('레시피 저장'),
+                  ),
                 ),
               ],
             ),

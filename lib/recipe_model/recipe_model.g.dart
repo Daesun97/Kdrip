@@ -16,7 +16,7 @@ _$CoffeeRecipeImpl _$$CoffeeRecipeImplFromJson(Map<String, dynamic> json) =>
       waterTemperature: (json['waterTemperature'] as num).toInt(),
       totalTime: (json['totalTime'] as num).toInt(),
       extractionSteps: (json['extractionSteps'] as List<dynamic>)
-          .map((e) => Map<String, int>.from(e as Map))
+          .map((e) => Map<String, dynamic>.from(e as Map))
           .toList(),
     );
 

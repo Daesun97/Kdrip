@@ -27,7 +27,7 @@ mixin _$CoffeeRecipe {
   int get waterAmount => throw _privateConstructorUsedError;
   int get waterTemperature => throw _privateConstructorUsedError;
   int get totalTime => throw _privateConstructorUsedError;
-  List<Map<String, int>> get extractionSteps =>
+  List<Map<String, dynamic>> get extractionSteps =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $CoffeeRecipeCopyWith<$Res> {
       int waterAmount,
       int waterTemperature,
       int totalTime,
-      List<Map<String, int>> extractionSteps});
+      List<Map<String, dynamic>> extractionSteps});
 }
 
 /// @nodoc
@@ -107,7 +107,7 @@ class _$CoffeeRecipeCopyWithImpl<$Res, $Val extends CoffeeRecipe>
       extractionSteps: null == extractionSteps
           ? _value.extractionSteps
           : extractionSteps // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, int>>,
+              as List<Map<String, dynamic>>,
     ) as $Val);
   }
 }
@@ -128,7 +128,7 @@ abstract class _$$CoffeeRecipeImplCopyWith<$Res>
       int waterAmount,
       int waterTemperature,
       int totalTime,
-      List<Map<String, int>> extractionSteps});
+      List<Map<String, dynamic>> extractionSteps});
 }
 
 /// @nodoc
@@ -183,7 +183,7 @@ class __$$CoffeeRecipeImplCopyWithImpl<$Res>
       extractionSteps: null == extractionSteps
           ? _value._extractionSteps
           : extractionSteps // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, int>>,
+              as List<Map<String, dynamic>>,
     ));
   }
 }
@@ -199,7 +199,7 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
       required this.waterAmount,
       required this.waterTemperature,
       required this.totalTime,
-      required final List<Map<String, int>> extractionSteps})
+      required final List<Map<String, dynamic>> extractionSteps})
       : _extractionSteps = extractionSteps;
 
   factory _$CoffeeRecipeImpl.fromJson(Map<String, dynamic> json) =>
@@ -219,9 +219,9 @@ class _$CoffeeRecipeImpl implements _CoffeeRecipe {
   final int waterTemperature;
   @override
   final int totalTime;
-  final List<Map<String, int>> _extractionSteps;
+  final List<Map<String, dynamic>> _extractionSteps;
   @override
-  List<Map<String, int>> get extractionSteps {
+  List<Map<String, dynamic>> get extractionSteps {
     if (_extractionSteps is EqualUnmodifiableListView) return _extractionSteps;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_extractionSteps);
@@ -291,7 +291,7 @@ abstract class _CoffeeRecipe implements CoffeeRecipe {
           required final int waterAmount,
           required final int waterTemperature,
           required final int totalTime,
-          required final List<Map<String, int>> extractionSteps}) =
+          required final List<Map<String, dynamic>> extractionSteps}) =
       _$CoffeeRecipeImpl;
 
   factory _CoffeeRecipe.fromJson(Map<String, dynamic> json) =
@@ -312,7 +312,7 @@ abstract class _CoffeeRecipe implements CoffeeRecipe {
   @override
   int get totalTime;
   @override
-  List<Map<String, int>> get extractionSteps;
+  List<Map<String, dynamic>> get extractionSteps;
   @override
   @JsonKey(ignore: true)
   _$$CoffeeRecipeImplCopyWith<_$CoffeeRecipeImpl> get copyWith =>

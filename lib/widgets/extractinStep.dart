@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ExtractionStep extends StatefulWidget {
   final int index;
-  final Map<String, TextEditingController> controllers;
+  final Map<String, dynamic> controllers;
   final VoidCallback onRemove;
 
   const ExtractionStep({
@@ -41,6 +41,16 @@ class _ExtractionStepState extends State<ExtractionStep> {
                 onChanged: (value) {
                   setState(() {
                     selectedAction = value!;
+                    //작업선택을 안하면 팝업창으로 에러 띄우기
+                    //밑에 물이랑 시간도 ''
+                    if (selectedAction != '작업 선택') {
+                      widget.controllers['action'] = selectedAction;
+                      widget.controllers['time'] = TextEditingController();
+                    }
+                    if (selectedAction == '물 추가' &&
+                        widget.controllers['amount'] == null) {
+                      widget.controllers['amount'] = TextEditingController();
+                    }
                     if (selectedAction != '물 추가') {
                       widget.controllers['amount']?.text = '해당 없음';
                     }
@@ -83,6 +93,14 @@ class _ExtractionStepState extends State<ExtractionStep> {
                   decoration: const InputDecoration(
                       labelText: '시간 (초)',
                       labelStyle: TextStyle(color: Colors.brown)),
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        int.tryParse(value) == null) {
+                      return '올바른 량을 기입해 주세요';
+                    }
+                    return null;
+                  },
                 ),
               ),
             ],

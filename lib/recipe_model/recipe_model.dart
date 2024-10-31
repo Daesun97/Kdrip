@@ -14,7 +14,7 @@ class CoffeeRecipe with _$CoffeeRecipe {
     required int waterAmount,
     required int waterTemperature,
     required int totalTime,
-    required List<Map<String, int>> extractionSteps,
+    required List<Map<String, dynamic>> extractionSteps,
   }) = _CoffeeRecipe;
 
   factory CoffeeRecipe.fromJson(Map<String, dynamic> json) =>

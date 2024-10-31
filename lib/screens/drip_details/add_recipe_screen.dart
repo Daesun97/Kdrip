@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:drip/constants/gaps.dart';
 import 'package:drip/constants/sizes.dart';
@@ -18,7 +19,7 @@ class AddRecipeScreen extends StatefulWidget {
 class _AddRecipeScreenState extends State<AddRecipeScreen> {
   List<CoffeeRecipe> coffeeRecipes = [];
   final _formKey = GlobalKey<FormState>();
-  int actionnum = 0;
+  int actionNum = 0;
 
   String _selectedDripper = '드립퍼';
   String _selectedGrindSize = '분쇄도';
@@ -42,8 +43,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   final List<String> _grindSizeOptions = ['분쇄도', '굵게', '중간', '얇게'];
 
   // 추출 과정 단계 관리 리스트
-  final List<Map<String, TextEditingController>> _extractionStepsControllers =
-      [];
+  final List<Map<String, dynamic>> _extractionStepsControllers = [];
 
   // 추출 단계 추가
   void _addExtractionStep() {
@@ -52,24 +52,23 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         //amout는 없을 수도 있는데 그건 어케 조건을 걸지?
         //여기서 Controller를 만들게 아니라 + 누를때 마다 생성해야 하나?
         //그게 되나 이거
-        'action $actionnum': TextEditingController(),
-        'amount $actionnum': TextEditingController(),
-        'time $actionnum': TextEditingController(),
+        'action $actionNum': null,
+        'amount $actionNum': null,
+        'time $actionNum': null,
       });
     });
-    actionnum += 1;
+    actionNum += 1;
   }
 
   void _removeExtractionStep(int index) {
     setState(() {
       // 각 컨트롤러 안전하게 해제
-      _extractionStepsControllers[index]['action $actionnum']?.dispose();
-      _extractionStepsControllers[index]['amount $actionnum']?.dispose();
-      _extractionStepsControllers[index]['time $actionnum']?.dispose();
+      _extractionStepsControllers[index].forEach((key, controller) {
+        controller?.dispose();
+      });
       _extractionStepsControllers.removeAt(index); // 상태 변경
-      actionnum -= 1;
+      actionNum -= 1;
     });
-    print(Text('인덳: $index, 넘버: $actionnum'));
   }
 
   Future<void> _saveRecipes() async {
@@ -88,7 +87,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     _waterTemperatureController.dispose();
     _totalTimeController.dispose();
     for (var controllers in _extractionStepsControllers) {
-      controllers.forEach((_, controller) => controller.dispose());
+      controllers.forEach((key, controller) {
+        controller?.dispose(); // null이 아닌 컨트롤러만 해제
+      });
     }
     super.dispose();
   }
@@ -281,11 +282,16 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // Gather extraction steps
-                        List<Map<String, int>> extractionSteps =
+                        List<Map<String, dynamic>> extractionSteps =
                             _extractionStepsControllers.map((controllers) {
                           return {
-                            'amount': int.parse(controllers['amount']!.text),
-                            'time': int.parse(controllers['time']!.text),
+                            'action': controllers['action']!,
+                            'amount': int.tryParse(
+                                    controllers['amount']?.text ?? '0') ??
+                                0,
+                            'time': int.tryParse(
+                                    controllers['time']?.text ?? '0') ??
+                                0,
                           };
                         }).toList();
 

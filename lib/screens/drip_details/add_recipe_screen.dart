@@ -49,9 +49,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   void _addExtractionStep() {
     setState(() {
       _extractionStepsControllers.add({
-        //amout는 없을 수도 있는데 그건 어케 조건을 걸지?
-        //여기서 Controller를 만들게 아니라 + 누를때 마다 생성해야 하나?
-        //그게 되나 이거
+        //+를 누를때마다 controll추가하게 변경함
         'action $actionNum': null,
         'amount $actionNum': null,
         'time $actionNum': null,
@@ -63,9 +61,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   void _removeExtractionStep(int index) {
     setState(() {
       // 각 컨트롤러 안전하게 해제
-      _extractionStepsControllers[index].forEach((key, controller) {
-        controller?.dispose();
-      });
+
+      _extractionStepsControllers[index]['action $actionNum']?.dispose();
+      _extractionStepsControllers[index]['amount $actionNum']?.dispose();
+      _extractionStepsControllers[index]['time $actionNum']?.dispose();
       _extractionStepsControllers.removeAt(index); // 상태 변경
       actionNum -= 1;
     });

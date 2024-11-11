@@ -20,7 +20,7 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 500));
+    Future.delayed(const Duration(milliseconds: 800));
     _loadRecipes();
   }
 
@@ -33,16 +33,16 @@ class _HarioV60RecipeState extends State<HarioV60Recipe> {
     );
   }
 
-  Future<void> _saveRecipes() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String jsonString =
-        jsonEncode(coffeeRecipes.map((recipe) => recipe.toJson()).toList());
-    await prefs.setString('coffeeRecipes', jsonString);
-  }
+  // Future<void> _saveRecipes() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String jsonString =
+  //       jsonEncode(coffeeRecipes.map((recipe) => recipe.toJson()).toList());
+  //   await prefs.setString('coffeeRecipes_Hario', jsonString);
+  // }
 
   Future<void> _loadRecipes() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? jsonString = prefs.getString('coffeeRecipes');
+    String? jsonString = prefs.getString('coffeeRecipes_Hario');
     if (jsonString != null) {
       List<dynamic> jsonList = jsonDecode(jsonString);
       setState(() {

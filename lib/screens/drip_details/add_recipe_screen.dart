@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:ffi';
 
-import 'package:drip/constants/gaps.dart';
 import 'package:drip/constants/sizes.dart';
 import 'package:drip/recipe_model/recipe_model.dart';
 import 'package:drip/recipes.dart';
+import 'package:drip/screens/drip_details/hario_V60.dart';
 import 'package:drip/widgets/extractinStep.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -72,9 +71,14 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   Future<void> _saveRecipes() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String jsonString = jsonEncode(
-        coffeeRecipes_Hario.map((recipe) => recipe.toJson()).toList());
-    await prefs.setString('coffeeRecipes', jsonString);
+    String jsonString =
+        jsonEncode(coffeeRecipes.map((recipe) => recipe.toJson()).toList());
+    await prefs.setString('coffeeRecipes_Hario', jsonString);
+  }
+
+  void _goBack() {
+    Future.delayed(const Duration(milliseconds: 800));
+    Navigator.pop(context);
   }
 
   @override
@@ -284,7 +288,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                         List<Map<String, dynamic>> extractionSteps =
                             _extractionStepsControllers.map((controllers) {
                           return {
-                            'action': controllers['action']!,
+                            'action': controllers['action']!.toString(),
                             'amount': int.tryParse(
                                     controllers['amount']?.text ?? '0') ??
                                 0,
@@ -296,9 +300,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
                         // Create a CoffeeRecipe object with the input values
                         final coffeeRecipe = CoffeeRecipe(
-                          dripperName: _selectedDripper,
-                          recipeName: _recipeNameController.text,
-                          grindSize: _selectedGrindSize,
+                          dripperName: _selectedDripper.toString(),
+                          recipeName: _recipeNameController.text.toString(),
+                          grindSize: _selectedGrindSize.toString(),
                           coffeeBeansAmount:
                               int.parse(_coffeeBeansAmountController.text),
                           waterAmount: int.parse(_waterAmountController.text),
@@ -307,10 +311,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                           totalTime: int.parse(_totalTimeController.text),
                           extractionSteps: extractionSteps,
                         );
-                        _saveRecipes;
+                        coffeeRecipes_Hario.add(coffeeRecipe);
 
                         // Print or save the CoffeeRecipe object
                         print(coffeeRecipe);
+                        _saveRecipes;
+                        _goBack;
                       }
                     },
                     child: const Text('레시피 저장'),
